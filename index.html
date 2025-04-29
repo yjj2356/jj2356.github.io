@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +28,7 @@
         header {
             background-image: url("https://i.ibb.co/vvHx63Sj/IMG-1893.png");
             background-size: cover;
-            background-position: top center; /*  상단 중앙 정렬 */
+            background-position: top center; /* 상단 중앙 정렬 */
             background-repeat: no-repeat;
             color: #336699;
             padding: 60px 15px 40px; /* 세로 패딩 증가 */
@@ -42,6 +40,12 @@
             border: 2px dashed #90caf9;
         }
 
+        /* 헤더 제목 애니메이션 */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
         header h1 {
             font-size: 1.2em; /* 더 작은 글꼴 크기 */
             font-weight: 900;
@@ -51,9 +55,9 @@
             bottom: 10px;    /* 아래쪽 여백 */
             left: 15px;      /* 왼쪽 여백 */
             margin: 0;
-            transform: rotate(0deg); /* 회전 제거*/
-             text-shadow: 0.5px 0.5px 0px #fff, -0.5px -0.5px 0px #fff;
-
+            /* transform: rotate(0deg); /* 회전 제거 - 애니메이션과 함께 사용 */
+            text-shadow: 0.5px 0.5px 0px #fff, -0.5px -0.5px 0px #fff;
+            animation: float 4s ease-in-out infinite; /* 애니메이션 적용 */
         }
 
         .intro-section {
@@ -65,8 +69,7 @@
             position: relative;
         }
 
-      /* ... 나머지 스타일은 이전과 동일 ... */
-    .intro-section h2 {
+        .intro-section h2 {
             font-size: 1.2em; /* Reduced h2 size */
             margin: 0 0 8px 0; /* Reduced margin */
             cursor: pointer;
@@ -77,19 +80,20 @@
         .intro-section h2 .toggle-icon {
             margin-right: 8px; /* Reduced margin */
             font-size: 1em; /* Reduced icon size */
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease; /* 부드러운 전환 시간 조정 */
         }
 
         .intro-section.collapsed h2 .toggle-icon {
-            transform: rotate(180deg);
+            transform: rotate(-90deg); /* 토글 시 아이콘 회전 각도 변경 */
         }
 
         .intro-content {
             display: block;
-            transition: max-height 0.4s ease, opacity 0.3s ease;
-            max-height: 500px;
+            transition: max-height 0.5s ease-out, opacity 0.4s ease-out, padding 0.4s ease-out; /* 부드러운 전환 */
+            max-height: 1000px; /* 충분한 높이 확보 */
             overflow: hidden;
             opacity: 1;
+            padding-top: 5px; /* 약간의 내부 상단 여백 */
         }
 
         .intro-section.collapsed .intro-content {
@@ -97,6 +101,7 @@
             opacity: 0;
             padding-top: 0;
             padding-bottom: 0;
+            margin-top: -10px; /* 접힐 때 약간 위로 당겨지도록 */
         }
 
         .intro-section p {
@@ -104,6 +109,14 @@
             line-height: 1.3; /* Reduced line-height */
             color: #427191;
             font-size: 0.85em;
+        }
+
+        /* 사운드클라우드 iframe 스타일 */
+        .intro-content iframe {
+            width: 100%;
+            max-width: 500px; /* 최대 너비 제한 (선택 사항) */
+            margin-top: 15px; /* 위쪽 여백 */
+            border-radius: 8px; /* 약간 둥근 모서리 */
         }
 
         .social-links {
@@ -124,14 +137,15 @@
             width: 30px; /* Reduced size */
             height: 30px; /* Reduced size */
             border-radius: 50%;
-            transition: transform 0.2s ease, background-color 0.2s ease;
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), background-color 0.2s ease, box-shadow 0.2s ease; /* 통통 튀는 효과 및 그림자 추가 */
             background-color: #fff;
             border: 1px solid #90caf9;
         }
 
         .social-links a:hover {
-            transform: scale(1.2) translateY(-3px);
+            transform: scale(1.2) translateY(-3px) rotate(10deg); /* 회전 효과 추가 */
             background-color: #e0f7fa;
+            box-shadow: 0 4px 8px rgba(51, 102, 153, 0.2); /* 호버 시 그림자 */
         }
 
         .archive-section {
@@ -143,6 +157,18 @@
             position: relative;
         }
 
+        /* 아카이브 아이템 로딩 애니메이션 */
+        @keyframes fadeInScaleUp {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
         .archive-item {
             width: 120px; /* Reduced size */
             height: 120px; /* Reduced size */
@@ -150,14 +176,29 @@
             cursor: pointer;
             border-radius: 5px;
             overflow: hidden;
-            transition: transform 0.2s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* box-shadow transition 추가 */
             background-color: #fff;
             border: 1px solid #bbdefb;
+            opacity: 0; /* 애니메이션 위해 초기 투명도 0 */
+            animation: fadeInScaleUp 0.6s ease-out forwards; /* 애니메이션 적용 */
         }
 
+        /* 순차적 로딩을 위한 animation-delay */
+        .archive-item:nth-child(1) { animation-delay: 0.1s; }
+        .archive-item:nth-child(2) { animation-delay: 0.2s; }
+        .archive-item:nth-child(3) { animation-delay: 0.3s; }
+        .archive-item:nth-child(4) { animation-delay: 0.4s; }
+        .archive-item:nth-child(5) { animation-delay: 0.5s; }
+        .archive-item:nth-child(6) { animation-delay: 0.6s; }
+        .archive-item:nth-child(7) { animation-delay: 0.7s; }
+        .archive-item:nth-child(8) { animation-delay: 0.8s; }
+        /* 필요하다면 더 많은 아이템에 대해 추가 */
+
+
         .archive-item:hover {
-            transform: scale(1.05) translateY(-3px);
+            transform: scale(1.08) translateY(-5px); /* 호버 효과 강화 */
             z-index: 5;
+            box-shadow: 0 5px 15px rgba(51, 102, 153, 0.3); /* 호버 시 그림자 (Glow) 효과 */
         }
 
         .archive-item .image-container {
@@ -175,13 +216,13 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: opacity 0.2s ease, transform 0.3s ease;
+            transition: opacity 0.3s ease, transform 0.4s ease; /* 이미지 전환 시간 조정 */
             border-radius: 5px;
         }
 
         .archive-item:hover img {
-            opacity: 0.9;
-            transform: scale(1.1);
+            opacity: 0.85;
+            transform: scale(1.15); /* 이미지 확대 효과 강화 */
         }
 
         .archive-item h3 {
@@ -200,11 +241,11 @@
         .archive-item h3 .toggle-icon {
             font-size: 0.7em; /* Reduced icon size */
             margin-left: 4px; /* Reduced margin */
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease; /* 부드러운 전환 시간 조정 */
         }
 
         .archive-item.collapsed h3 .toggle-icon {
-            transform: rotate(180deg);
+            transform: rotate(-90deg); /* 토글 시 아이콘 회전 각도 변경 */
         }
 
         .archive-item .description {
@@ -216,13 +257,15 @@
             line-height: 1.2; /* Reduced line-height */
             max-height: 80px; /* Reduced max-height */
             overflow: hidden;
-            transition: max-height 0.4s ease, opacity 0.3s ease;
+            transition: max-height 0.5s ease-out, opacity 0.4s ease-out, padding 0.4s ease-out; /* 부드러운 전환 */
+            opacity: 1; /* 초기 상태 */
         }
 
         .archive-item.collapsed .description {
             max-height: 0;
             opacity: 0;
-            padding: 0;
+            padding: 0 4px; /* 좌우 패딩 유지하며 상하 패딩 0 */
+            margin-top: -4px; /* 접힐 때 약간 위로 당겨지도록 */
         }
 
         .archive-item .description a {
@@ -230,31 +273,33 @@
             text-decoration: underline;
         }
 
-        /* Overlapping and Asymmetry */
-        .archive-item:nth-child(3n+1) { top: 8px; left: -12px; } /* Reduced values */
-        .archive-item:nth-child(3n+2) { top: -4px; left: 8px; }  /* Reduced values */
-        .archive-item:nth-child(3n)   { top: 16px; }  /* Reduced values */
+        /* Overlapping and Asymmetry (기존 유지) */
+        .archive-item:nth-child(3n+1) { top: 8px; left: -12px; }
+        .archive-item:nth-child(3n+2) { top: -4px; left: 8px; }
+        .archive-item:nth-child(3n)   { top: 16px; }
 
-        /* Responsive adjustments */
+        /* Responsive adjustments (기존 유지) */
         @media (max-width: 768px) {
-            header h1 { font-size: 1.8em; } /* Reduced size */
-            .archive-item { width: 100px; height: 100px; } /* Reduced size */
+            header h1 { font-size: 1.8em; }
+            .archive-item { width: 100px; height: 100px; }
             .archive-item:nth-child(n) { top: 0; left: 0; }
             .archive-section{ justify-content: center;}
-            .intro-section h2 { font-size: 1.1em; } /* Reduced size */
-             .social-links a {  /* Reduced size */
+            .intro-section h2 { font-size: 1.1em; }
+             .social-links a {
                 width: 25px;
                 height: 25px;
                 font-size: 1em;
             }
+             /* 반응형에서 애니메이션 지연 제거 또는 조정 (선택 사항) */
+            .archive-item:nth-child(n) { animation-delay: 0s; }
         }
 
         @media (max-width: 480px) {
-            header h1 { font-size: 1.5em; } /* Reduced size */
-            .archive-item { width: 80px; height: 80px; } /* Reduced size */
-            .archive-section { gap: 8px; } /* Reduced gap */
-             .intro-section h2 { font-size: 1em; } /* Reduced size */
-              .social-links a {  /* Reduced size */
+            header h1 { font-size: 1.5em; }
+            .archive-item { width: 80px; height: 80px; }
+            .archive-section { gap: 8px; }
+             .intro-section h2 { font-size: 1em; }
+              .social-links a {
                 width: 22px;
                 height: 22px;
                 font-size: 0.9em;
@@ -263,7 +308,7 @@
 
     </style>
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Font Awesome 링크는 head 상단에 이미 있습니다 -->
 </head>
 <body>
     <header>
@@ -278,22 +323,24 @@
                 <p>
                    ようこそ！
                 </p>
+                <!-- SoundCloud Player Embed -->
+                <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
+                  src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1859142000&color=%23336699&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">
+                </iframe>
+                <!-- End SoundCloud Player Embed -->
+
                 <div class="social-links">
                     <a href="https://twitter.com/yourprofile" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <!-- YouTube Link -->
-<a href="https://youtube.com/yourprofile" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="https://youtube.com/yourprofile" target="_blank"><i class="fab fa-youtube"></i></a>
                     <a href="https://spotify.com/yourprofile" target="_blank"><i class="fab fa-spotify"></i></a>
-                   
-                    <!-- SoundCloud Link (Using cloud icon) -->
-<a href="https://soundcloud.com/yourprofile" target="_blank"><i class="fas fa-cloud"></i></a>
-                    <!-- Naver Blog Link (Using blog icon as substitute) -->
+                    <a href="https://soundcloud.com/yourprofile" target="_blank"><i class="fas fa-cloud"></i></a>
                     <a href="https://blog.naver.com/yourprofile" target="_blank"><i class="fas fa-blog"></i></a>
                 </div>
             </div>
         </section>
 
         <section class="archive-section">
-            <!-- Archive Items -->
+            <!-- Archive Items (HTML 구조는 동일) -->
             <div class="archive-item">
                 <div class="image-container">
                     <img src="https://via.placeholder.com/140/b3e5fc/336699?text=Book" alt="Book Image">
@@ -350,6 +397,7 @@
                 <h3><span class="toggle-icon">▼</span>Item 8</h3>
                 <p class="description">Description 8.</p>
             </div>
+            <!-- 추가 아카이브 아이템이 있다면 여기에 계속 추가 -->
         </section>
     </div>
 
@@ -358,18 +406,46 @@
             // Collapsible Introduction Section
             const introSection = document.querySelector('.intro-section');
             const introTitle = introSection.querySelector('h2');
+            const introContent = introSection.querySelector('.intro-content'); // intro-content 요소 참조
+
             introTitle.addEventListener('click', () => {
                 introSection.classList.toggle('collapsed');
+
+                // 접근성 고려: aria-expanded 속성 토글 (선택 사항)
+                const isCollapsed = introSection.classList.contains('collapsed');
+                introTitle.setAttribute('aria-expanded', !isCollapsed);
+                introContent.setAttribute('aria-hidden', isCollapsed);
             });
 
             // Collapsible Archive Items
             const archiveItems = document.querySelectorAll('.archive-item');
             archiveItems.forEach(item => {
                 const title = item.querySelector('h3');
-                title.addEventListener('click', () => {
+                const description = item.querySelector('.description'); // description 요소 참조
+
+                // 초기 상태 설정 (접힌 상태로 시작하도록)
+                 item.classList.add('collapsed'); // 처음에 접혀 있도록 collapsed 클래스 추가
+                 title.setAttribute('aria-expanded', 'false'); // 접근성
+                 if(description) description.setAttribute('aria-hidden', 'true'); // 접근성
+
+                title.addEventListener('click', (event) => {
+                     // 이벤트 버블링 방지 (선택 사항: 아이템 클릭 시 페이지 상단 이동 방지 등)
+                    // event.stopPropagation();
+
                     item.classList.toggle('collapsed');
+
+                     // 접근성 고려: aria-expanded 속성 토글 (선택 사항)
+                    const isCollapsed = item.classList.contains('collapsed');
+                    title.setAttribute('aria-expanded', !isCollapsed);
+                    if(description) description.setAttribute('aria-hidden', isCollapsed);
                 });
             });
+
+            // 초기 로드 시 intro 섹션은 펼쳐진 상태로 만들기 (선택적)
+             // introSection.classList.remove('collapsed'); // 필요하다면 이 줄의 주석 해제
+             // introTitle.setAttribute('aria-expanded', 'true');
+             // introContent.setAttribute('aria-hidden', 'false');
+
         });
     </script>
 </body>

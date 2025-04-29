@@ -111,17 +111,54 @@
             font-size: 0.85em;
         }
 
-        /* 사운드클라우드 iframe 스타일 */
-        <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
-  src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1859142000&color=%23336699&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=true">
-</iframe>
+        /* 사운드클라우드 iframe 및 관련 스타일 */
+        .soundcloud-player-container {
+            margin-top: 15px; /* 위쪽 여백 */
+            margin-bottom: 5px; /* 아래쪽 설명과의 간격 */
+            position: relative; /* 필요하다면 추가 스타일링 위해 */
+        }
+
+        .intro-content iframe { /* iframe 태그 자체에 대한 스타일 */
+            width: 100%;      /* 너비를 항상 부모 요소의 100%로 설정 */
+            height: 300px;     /* 기본 높이 설정 (visual=true 플레이어에 적합) */
+            border: none;      /* frameborder="no"와 동일 효과 */
+            border-radius: 8px; /* 약간 둥근 모서리 */
+            display: block;    /* 인라인 블록 문제를 피하기 위해 블록 요소로 만듦 */
+        }
+
+        .soundcloud-attribution {
+            margin-top: 5px; /* iframe과의 간격 */
+            /* 기존 인라인 스타일 유지 또는 필요한 경우 여기서 수정 */
+            font-size: 10px;
+            color: #cccccc;
+            line-break: anywhere;
+            word-break: normal;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+            font-weight: 100;
+        }
+        .soundcloud-attribution a {
+             color: #cccccc;
+             text-decoration: none;
+        }
+
+
+        /* 반응형: 작은 화면에서 높이 조절 (선택 사항) */
+        @media (max-width: 480px) {
+            .intro-content iframe {
+                height: 250px; /* 모바일 화면에서 높이를 약간 줄임 */
+            }
+        }
+
 
         .social-links {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px; /* Reduced gap */
-            margin-top: 8px; /* Reduced margin */
+            margin-top: 15px; /* 플레이어 아래 간격 조정 */
         }
 
         .social-links a {
@@ -279,7 +316,7 @@
         @media (max-width: 768px) {
             header h1 { font-size: 1.8em; }
             .archive-item { width: 100px; height: 100px; }
-            .archive-item:nth-child(n) { top: 0; left: 0; }
+            .archive-item:nth-child(n) { top: 0; left: 0; animation-delay: 0s; } /* 반응형에서 위치 및 애니메이션 지연 초기화 */
             .archive-section{ justify-content: center;}
             .intro-section h2 { font-size: 1.1em; }
              .social-links a {
@@ -287,8 +324,6 @@
                 height: 25px;
                 font-size: 1em;
             }
-             /* 반응형에서 애니메이션 지연 제거 또는 조정 (선택 사항) */
-            .archive-item:nth-child(n) { animation-delay: 0s; }
         }
 
         @media (max-width: 480px) {
@@ -301,6 +336,7 @@
                 height: 22px;
                 font-size: 0.9em;
             }
+            /* .intro-content iframe 높이 조절은 위에서 이미 처리함 */
         }
 
     </style>
@@ -320,10 +356,17 @@
                 <p>
                    ようこそ！
                 </p>
-                <!-- SoundCloud Player Embed -->
-                <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
-                  src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1859142000&color=%23336699&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">
-                </iframe>
+                <!-- SoundCloud Player Embed (새로운 코드 + 하단 링크 포함) -->
+                <div class="soundcloud-player-container"> {/* iframe과 설명을 묶는 컨테이너 */}
+                    <iframe scrolling="no" frameborder="no" allow="autoplay"
+                        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/347779050&color=%230066cc&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
+                        {/* width와 height 속성을 제거하고 CSS로 제어 */}
+                    </iframe>
+                    <div class="soundcloud-attribution"> {/* 클래스 추가하여 CSS로 스타일 관리 */}
+                        <a href="https://soundcloud.com/electrocutica" title="ELECTROCUTICA" target="_blank">ELECTROCUTICA</a> ·
+                        <a href="https://soundcloud.com/electrocutica/chaining-intention-offvocal" title="[Free Download] Chaining Intention(Off Vocal)" target="_blank">[Free Download] Chaining Intention(Off Vocal)</a>
+                    </div>
+                </div>
                 <!-- End SoundCloud Player Embed -->
 
                 <div class="social-links">
@@ -408,11 +451,15 @@
             introTitle.addEventListener('click', () => {
                 introSection.classList.toggle('collapsed');
 
-                // 접근성 고려: aria-expanded 속성 토글 (선택 사항)
+                // 접근성 고려: aria-expanded 속성 토글
                 const isCollapsed = introSection.classList.contains('collapsed');
                 introTitle.setAttribute('aria-expanded', !isCollapsed);
                 introContent.setAttribute('aria-hidden', isCollapsed);
             });
+            // 초기 상태 설정 (펼쳐진 상태)
+            introTitle.setAttribute('aria-expanded', 'true');
+            introContent.setAttribute('aria-hidden', 'false');
+
 
             // Collapsible Archive Items
             const archiveItems = document.querySelectorAll('.archive-item');
@@ -426,23 +473,17 @@
                  if(description) description.setAttribute('aria-hidden', 'true'); // 접근성
 
                 title.addEventListener('click', (event) => {
-                     // 이벤트 버블링 방지 (선택 사항: 아이템 클릭 시 페이지 상단 이동 방지 등)
-                    // event.stopPropagation();
-
                     item.classList.toggle('collapsed');
 
-                     // 접근성 고려: aria-expanded 속성 토글 (선택 사항)
+                     // 접근성 고려: aria-expanded 속성 토글
                     const isCollapsed = item.classList.contains('collapsed');
                     title.setAttribute('aria-expanded', !isCollapsed);
                     if(description) description.setAttribute('aria-hidden', isCollapsed);
                 });
             });
 
-            // 초기 로드 시 intro 섹션은 펼쳐진 상태로 만들기 (선택적)
-             // introSection.classList.remove('collapsed'); // 필요하다면 이 줄의 주석 해제
-             // introTitle.setAttribute('aria-expanded', 'true');
-             // introContent.setAttribute('aria-hidden', 'false');
-
+            // 초기 로드 시 intro 섹션은 펼쳐진 상태로 만들기 (위에서 처리 완료)
+             // introSection.classList.remove('collapsed'); // 필요 시 주석 해제
         });
     </script>
 </body>

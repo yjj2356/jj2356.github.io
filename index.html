@@ -3,81 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Homepage</title> <!-- 타이틀 변경 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <link rel="stylesheet" href="style.css"> <!-- style.css 연결 -->
+    <title>My Cyber Home</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>My Cyber Home</h1> <!-- 헤더 타이틀 변경 -->
-    </header>
+    <div class="splash-container">
+        
+        <h1 class="main-title">My Cyber Home</h1>
 
-    <div class="container">
+        <nav class="main-nav">
+            <ul>
+                <li><a href="page_about.html">ABOUT</a></li>
+                <li><a href="page_diary.html">DIARY</a></li>
+                <li><a href="page_favorites.html">FAVORITES</a></li>
+                <li><a href="page_guestbook.html">GUESTBOOK</a></li>
+                <!-- 필요한 메뉴를 여기에 추가하세요 -->
+            </ul>
+        </nav>
 
-        <!-- SoundCloud Player Embed -->
-        <div class="soundcloud-player-container">
-            <iframe scrolling="no" frameborder="no" allow="autoplay"
-                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/347779050&color=%230066cc&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
-            </iframe>
-        </div>
-
-        <!-- Collapsible Introduction Section -->
-        <section class="intro-section">
-            <h2><span class="toggle-icon">▼</span>About</h2>
-            <div class="intro-content">
-                <p>ようこそ！ 제 개인 홈페이지에 오신 것을 환영합니다.</p>
-                <div class="social-links">
-                    <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
-                    <a href="#" target="_blank"><i class="fas fa-blog"></i></a>
-                    <!-- 필요한 링크로 수정하세요 -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Board Menu Section (게시판 링크 메뉴) -->
-        <section class="board-menu-section">
-            <!-- 각 아이템을 a 태그로 바꾸고, 해당 게시판 html 파일로 연결합니다. -->
-            <a href="board_book.html" class="board-link-item">
-                <div class="image-container">
-                    <img src="https://via.placeholder.com/140/b3e5fc/336699?text=" alt="Book Image">
-                </div>
-                <h3>Favorite Book</h3>
-            </a>
-            <a href="board_comic.html" class="board-link-item">
-                <div class="image-container">
-                    <img src="https://via.placeholder.com/140/b2ebf2/336699?text=" alt="Comic Image">
-                </div>
-                 <h3>Favorite Comic</h3>
-            </a>
-            <a href="board_movie.html" class="board-link-item">
-                <div class="image-container">
-                    <img src="https://via.placeholder.com/140/e0f2f7/336699?text=" alt="Movie Image">
-                </div>
-                <h3>Favorite Movie</h3>
-            </a>
-            <a href="board_music.html" class="board-link-item">
-                <div class="image-container">
-                    <img src="https://via.placeholder.com/140/b3e5fc/336699?text=" alt="Music Image">
-                </div>
-               <h3>Favorite Music</h3>
-            </a>
-            <a href="board_game.html" class="board-link-item">
-                <div class="image-container">
-                   <img src="https://via.placeholder.com/140/b2ebf2/336699?text=" alt="Game Image">
-                </div>
-               <h3>Favorite Game</h3>
-            </a>
-            <a href="board_diary.html" class="board-link-item">
-                <div class="image-container">
-                   <img src="https://via.placeholder.com/140/e0f2f7/336699?text=" alt="Diary">
-                </div>
-                <h3>Diary</h3>
-            </a>
-            <!-- 필요한 만큼 복사해서 사용하세요 -->
-        </section>
     </div>
-
-    <script src="script.js"></script> <!-- script.js 연결 -->
 </body>
 </html>

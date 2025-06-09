@@ -1,21 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Cyber Archive</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
     <style>
+        /*
+          NEW DESIGN THEME: Aurora Cyber
+          - 몽환적인 오로라 배경과 유리 질감(Glassmorphism)을 적용한 디자인
+          - Color Palette: Deep Indigo, Soft Lavender, Mint, White
+        */
+
+        :root {
+            --bg-color: #f0f8ff;
+            --primary-text-color: #1e1e3f; /* 깊은 인디고 */
+            --accent-color-1: #a29bfe; /* 소프트 라벤더 */
+            --accent-color-2: #7ed6df; /* 민트 */
+            --card-bg: rgba(255, 255, 255, 0.25); /* 유리 질감 배경 */
+            --card-border: rgba(255, 255, 255, 0.2);
+        }
+
+        /* 몽환적인 오로라 배경 애니메이션 */
+        @keyframes aurora-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         body {
-            font-family: 'DotGothic16', sans-serif;
-            background-color: #f0f8ff; /* 아주 옅은 하늘색 (AliceBlue) */
-            background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.03' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");/* 더 옅은 점 패턴 */
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(-45deg, #e0c3fc, #8ec5fc, #b4f8c8, #a29bfe);
+            background-size: 400% 400%;
+            animation: aurora-gradient 20s ease infinite;
             margin: 0;
             padding: 0;
-            color: #336699;
+            color: var(--primary-text-color);
             overflow-x: hidden;
-            font-size: 0.9em;
+            font-size: 16px;
+        }
+        
+        /* 스캔라인 효과로 레트로 느낌 추가 */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.03), rgba(0,0,0,0.03) 1px, transparent 1px, transparent 2px);
+            pointer-events: none;
+            z-index: 9999;
         }
 
         .container {
@@ -29,194 +67,165 @@
         header {
             background-image: url("https://i.ibb.co/vvHx63Sj/IMG-1893.png");
             background-size: cover;
-            background-position: top center; /* 상단 중앙 정렬 */
-            background-repeat: no-repeat;
-            color: #336699;
-            padding: 60px 15px 40px; /* 세로 패딩 증가 */
+            background-position: center 30%;
+            padding: 80px 15px 60px;
             text-align: center;
-            border-radius: 10px;
+            border-radius: 15px;
             position: relative;
             overflow: hidden;
-            margin-bottom: 0.8rem;
-            border: 2px dashed #90caf9;
+            margin-bottom: 2rem;
+            border: 2px solid var(--card-border);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
         }
 
-        /* 헤더 제목 애니메이션 */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); } /* 움직임 폭 증가 */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(142, 197, 252, 0.3), rgba(224, 195, 252, 0.1));
+            z-index: 1;
         }
 
+        /* 헤더 제목 글리치 효과 */
+        @keyframes glitch {
+            2%, 64% { transform: translate(2px, 0) skew(0deg); }
+            4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+            62% { transform: translate(0, 0) skew(5deg); }
+        }
         header h1 {
-            font-size: 1.2em; /* 더 작은 글꼴 크기 */
+            font-family: 'DotGothic16', sans-serif;
+            font-size: 2.5em;
             font-weight: 900;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             z-index: 2;
-            position: absolute; /* 절대 위치 */
-            bottom: 10px;    /* 아래쪽 여백 */
-            left: 15px;      /* 왼쪽 여백 */
-            margin: 0;
-            text-shadow: 0.5px 0.5px 0px #fff, -0.5px -0.5px 0px #fff;
-            animation: float 4s ease-in-out infinite; /* 애니메이션 적용 */
-        }
-
-        /* 사운드클라우드 iframe 및 관련 스타일 (위치 변경 및 사이즈 조정) */
-        .soundcloud-player-container {
-            margin: 15px auto; /* 위아래 여백, 가운데 정렬 */
-            max-width: 600px; /* 최대 너비 제한 (선택 사항) */
-            position: relative; /* 필요하다면 추가 스타일링 위해 */
-            border-radius: 8px; /* 컨테이너 자체에 둥근 모서리 적용 */
-            overflow: hidden; /* 둥근 모서리 적용 시 내부 콘텐츠 숨김 */
-            border: 1px solid #bbdefb; /* 연한 테두리 추가 */
-        }
-
-        .soundcloud-player-container iframe { /* iframe 태그 자체에 대한 스타일 */
-            width: 100%;      /* 너비를 항상 부모 요소의 100%로 설정 */
-            height: 200px;     /* 높이 감소 (원래 300px) */
-            border: none;      /* frameborder="no"와 동일 효과 */
-            display: block;    /* 인라인 블록 문제를 피하기 위해 블록 요소로 만듦 */
-        }
-
-        .soundcloud-attribution {
-            margin-top: 5px; /* iframe과의 간격 */
-            /* 기존 인라인 스타일 유지 또는 필요한 경우 여기서 수정 */
-            font-size: 10px;
-            color: #cccccc;
-            line-break: anywhere;
-            word-break: normal;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
-            font-weight: 100;
-            padding: 0 5px 5px; /* 하단 컨테이너 여백 */
-            background-color: #fff; /* 배경색 추가 (attribution이 잘 보이도록) */
-        }
-        .soundcloud-attribution a {
-             color: #cccccc;
-             text-decoration: none;
-        }
-
-
-        /* Collapsible Intro Section */
-        .intro-section {
-            background-color: #f0f8ff;
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 1.5rem;
-            border: 1px solid #90caf9;
             position: relative;
+            margin: 0;
+            color: #fff;
+            text-shadow: 
+                -1px -1px 0 var(--accent-color-1),  
+                 1px -1px 0 var(--accent-color-2),
+                -1px  1px 0 var(--accent-color-2),
+                 1px  1px 0 var(--accent-color-1),
+                 0 0 15px rgba(255,255,255,0.5);
+            animation: glitch 1s linear infinite;
+        }
+
+        /* Glassmorphism Card Style */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+            padding: 20px;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .soundcloud-player-container {
+             border-radius: 15px;
+             overflow: hidden;
+             border: 1px solid var(--card-border);
+        }
+        .soundcloud-player-container iframe {
+            width: 100%;
+            height: 160px; /* 비주얼 플레이어에 적합한 높이 */
+            border: none;
+            display: block;
+        }
+        .soundcloud-attribution {
+            display: none; /* 디자인을 위해 숨김 처리 */
         }
 
         .intro-section h2 {
-            font-size: 1.2em; /* Reduced h2 size */
-            margin: 0 0 8px 0; /* Reduced margin */
+            font-family: 'DotGothic16', sans-serif;
+            font-size: 1.5em;
+            margin: 0 0 15px 0;
             cursor: pointer;
             display: flex;
             align-items: center;
+            color: var(--primary-text-color);
         }
-
         .intro-section h2 .toggle-icon {
-            margin-right: 8px; /* Reduced margin */
-            font-size: 1em; /* Reduced icon size */
-            transition: transform 0.4s ease; /* 부드러운 전환 시간 */
-            display: inline-block; /* transform 적용을 위해 필요 */
+            margin-right: 10px;
+            font-size: 0.8em;
+            transition: transform 0.4s ease;
         }
-
-        .intro-section.collapsed h2 .toggle-icon {
-            transform: rotate(-90deg); /* 토글 시 아이콘 회전 각도 */
-        }
+        .intro-section.collapsed h2 .toggle-icon { transform: rotate(-90deg); }
 
         .intro-content {
-            display: block;
-            transition: max-height 0.5s ease-out, opacity 0.4s ease-out, padding 0.4s ease-out; /* 부드러운 전환 */
-            max-height: 1000px; /* 충분한 높이 확보 */
+            max-height: 1000px;
             overflow: hidden;
             opacity: 1;
-            padding-top: 5px; /* 약간의 내부 상단 여백 */
+            transition: max-height 0.5s ease-out, opacity 0.4s ease-out;
         }
-
         .intro-section.collapsed .intro-content {
             max-height: 0;
             opacity: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-            margin-top: -10px; /* 접힐 때 약간 위로 당겨지도록 */
         }
 
         .intro-section p {
-            margin: 0 0 8px; /* Reduced margin */
-            line-height: 1.3; /* Reduced line-height */
-            color: #427191;
-            font-size: 0.85em;
+            margin: 0 0 15px;
+            line-height: 1.6;
+            color: var(--primary-text-color);
+            font-weight: 300;
         }
-
 
         .social-links {
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: 10px; /* Reduced gap */
-            margin-top: 15px; /* 플레이어 아래 간격 조정 */
+            gap: 15px;
         }
 
         .social-links a {
-            text-decoration: none;
-            color: #336699;
-            font-size: 1.1em; /* Reduced icon size */
+            font-size: 1.5em;
+            color: var(--primary-text-color);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            width: 30px; /* Reduced size */
-            height: 30px; /* Reduced size */
-            border-radius: 50%;
-            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), background-color 0.2s ease, box-shadow 0.2s ease; /* 통통 튀는 효과 및 그림자 추가 */
-            background-color: #fff;
-            border: 1px solid #90caf9;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            background: rgba(255, 255, 255, 0.5);
         }
 
         .social-links a:hover {
-            transform: scale(1.2) translateY(-5px) rotate(10deg); /* 회전 효과 추가, translateY 조정 */
-            background-color: #e0f7fa;
-            box-shadow: 0 4px 8px rgba(51, 102, 153, 0.2); /* 호버 시 그림자 */
+            transform: translateY(-5px) scale(1.1);
+            background: #fff;
+            color: var(--accent-color-1);
+            box-shadow: 0 0 15px var(--accent-color-1);
         }
 
         .archive-section {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            padding: 15px; /* Reduced padding */
-            gap: 15px; /* Reduced gap */
-            position: relative;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 25px;
         }
 
-        /* 아카이브 아이템 로딩 애니메이션 */
         @keyframes fadeInScaleUp {
-            from {
-                opacity: 0;
-                transform: scale(0.9) translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .archive-item {
-            width: 120px; /* Reduced size */
-            height: 120px; /* Reduced size */
+            aspect-ratio: 1 / 1; /* 정사각형 비율 유지 */
             position: relative;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 15px;
             overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* box-shadow transition 추가 */
-            background-color: #fff;
-            border: 1px solid #bbdefb;
-            opacity: 0; /* 애니메이션 위해 초기 투명도 0 */
-            animation: fadeInScaleUp 0.6s ease-out forwards; /* 애니메이션 적용 */
+            opacity: 0;
+            animation: fadeInScaleUp 0.6s ease-out forwards;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* 순차적 로딩을 위한 animation-delay */
+        /* 순차 로딩 애니메이션 */
         .archive-item:nth-child(1) { animation-delay: 0.1s; }
         .archive-item:nth-child(2) { animation-delay: 0.2s; }
         .archive-item:nth-child(3) { animation-delay: 0.3s; }
@@ -225,131 +234,88 @@
         .archive-item:nth-child(6) { animation-delay: 0.6s; }
         .archive-item:nth-child(7) { animation-delay: 0.7s; }
         .archive-item:nth-child(8) { animation-delay: 0.8s; }
-        /* 필요하다면 더 많은 아이템에 대해 추가 */
-
 
         .archive-item:hover {
-            transform: scale(1.08) translateY(-5px); /* 호버 효과 강화 */
-            z-index: 5;
-            box-shadow: 0 5px 15px rgba(51, 102, 153, 0.3); /* 호버 시 그림자 (Glow) 효과 */
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 0 20px 5px rgba(162, 155, 254, 0.6); /* 라벤더 빛 Glow */
+            z-index: 10;
         }
-
-        .archive-item .image-container {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            overflow: hidden;
-            border-radius: 5px;
-        }
-
+        
         .archive-item img {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             object-fit: cover;
-            transition: opacity 0.3s ease, transform 0.4s ease; /* 이미지 전환 시간 조정 */
-            border-radius: 5px;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            z-index: 1;
         }
 
+        .archive-item .item-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 2;
+            padding: 15px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* 텍스트를 아래로 정렬 */
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 50%);
+            transition: background 0.5s ease;
+        }
+        
+        .archive-item:hover .item-overlay {
+            background: linear-gradient(to top, rgba(20, 20, 40, 0.85) 0%, transparent 100%);
+        }
         .archive-item:hover img {
-            opacity: 0.85;
-            transform: scale(1.15); /* 이미지 확대 효과 강화 */
+            transform: scale(1.1);
         }
 
         .archive-item h3 {
-            font-size: 0.9em; /* Reduced h3 size */
-            margin: 4px 0 1px; /* Reduced margin */
-            color: #336699;
-            text-align: center;
+            font-family: 'DotGothic16', sans-serif;
+            font-size: 1.1em;
+            margin: 0 0 5px 0;
+            color: #fff;
             font-weight: 700;
-            cursor: pointer;
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-shadow: none;
+            cursor: pointer;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
         }
-
         .archive-item h3 .toggle-icon {
-            font-size: 0.7em; /* Reduced icon size */
-            margin-left: 4px; /* Reduced margin */
-            transition: transform 0.4s ease; /* 부드러운 전환 시간 */
-            display: inline-block; /* transform 적용을 위해 필요 */
+            font-size: 0.8em;
+            margin-right: 5px; /* 아이콘을 제목 앞으로 */
+            transition: transform 0.4s ease;
         }
-
-        .archive-item.collapsed h3 .toggle-icon {
-            transform: rotate(-90deg); /* 토글 시 아이콘 회전 각도 */
-        }
+        .archive-item.collapsed h3 .toggle-icon { transform: rotate(-90deg); }
 
         .archive-item .description {
-            display: block;
-            color: #427191;
-            font-size: 0.8em; /* Reduced description size */
-            text-align: center;
-            padding: 4px; /* Reduced padding */
-            line-height: 1.2; /* Reduced line-height */
-            max-height: 80px; /* Reduced max-height */
-            overflow: hidden;
-            transition: max-height 0.5s ease-out, opacity 0.4s ease-out, padding 0.4s ease-out; /* 부드러운 전환 */
-            opacity: 1; /* 초기 상태 */
-        }
-
-        .archive-item.collapsed .description {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.85em;
+            line-height: 1.4;
             max-height: 0;
             opacity: 0;
-            padding: 0 4px; /* 좌우 패딩 유지하며 상하 패딩 0 */
-            margin-top: -4px; /* 접힐 때 약간 위로 당겨지도록 */
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.5s ease-out 0.1s;
+        }
+        
+        /* 'collapsed' 클래스가 없을 때 (펼쳐졌을 때) 설명 표시 */
+        .archive-item:not(.collapsed) .description {
+            max-height: 80px; 
+            opacity: 1;
         }
 
-        .archive-item .description a {
-            color: #6495ed;
-            text-decoration: underline;
-        }
 
-        /* Overlapping and Asymmetry (기존 유지) */
-        /* 사운드클라우드 추가로 n-child 계산이 달라지므로 조정이 필요할 수 있습니다. */
-        /* 또는 반응형에서처럼 이 효과를 끄는 것이 레이아웃 안정성에 좋을 수 있습니다. */
-        /* 여기서는 일단 그대로 유지하되, 레이아웃이 깨지면 이 부분을 조정하거나 제거하세요. */
-        .archive-item:nth-child(3n+1) { top: 8px; left: -12px; }
-        .archive-item:nth-child(3n+2) { top: -4px; left: 8px; }
-        .archive-item:nth-child(3n)   { top: 16px; }
-
-
-        /* Responsive adjustments (기존 유지) */
         @media (max-width: 768px) {
-            header h1 { font-size: 1.8em; }
-            /* 사운드클라우드 높이 반응형 조정 */
-             .soundcloud-player-container iframe {
-                height: 180px; /* 중간 화면에서 높이를 약간 줄임 */
-            }
-            .archive-item { width: 100px; height: 100px; }
-            .archive-item:nth-child(n) { top: 0; left: 0; animation-delay: 0s; } /* 반응형에서 위치 및 애니메이션 지연 초기화 */
-            .archive-section{ justify-content: center;}
-            .intro-section h2 { font-size: 1.1em; }
-             .social-links a {
-                width: 25px;
-                height: 25px;
-                font-size: 1em;
-            }
+            header h1 { font-size: 2em; }
+            .archive-section { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 20px; }
         }
 
         @media (max-width: 480px) {
-            header h1 { font-size: 1.5em; }
-             /* 사운드클라우드 높이 반응형 조정 */
-             .soundcloud-player-container iframe {
-                height: 160px; /* 모바일 화면에서 높이를 더 줄임 */
-            }
-            .archive-item { width: 80px; height: 80px; }
-            .archive-section { gap: 8px; }
-             .intro-section h2 { font-size: 1em; }
-              .social-links a {
-                width: 22px;
-                height: 22px;
-                font-size: 0.9em;
-            }
+            header h1 { font-size: 1.8em; }
+            .archive-section { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .social-links a { width: 40px; height: 40px; font-size: 1.2em; }
         }
-
     </style>
 </head>
 <body>
@@ -359,95 +325,91 @@
 
     <div class="container">
 
-        <!-- SoundCloud Player Embed -->
-        <div class="soundcloud-player-container">
-            <iframe scrolling="no" frameborder="no" allow="autoplay"
-                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/347779050&color=%230066cc&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
-            </iframe>
-            <div class="soundcloud-attribution">
-                <a href="https://soundcloud.com/electrocutica" title="ELECTROCUTICA" target="_blank">ELECTROCUTICA</a> ·
-                <a href="https://soundcloud.com/electrocutica/chaining-intention-offvocal" title="[Free Download] Chaining Intention(Off Vocal)" target="_blank">[Free Download] Chaining Intention(Off Vocal)</a>
-            </div>
-        </div>
-        <!-- End SoundCloud Player Embed -->
-
-        <!-- Collapsible Introduction Section -->
-        <section class="intro-section">
+        <!-- SoundCloud Player는 디자인을 위해 About 카드 안으로 이동 -->
+        <section class="intro-section glass-card">
             <h2><span class="toggle-icon">▼</span>About</h2>
             <div class="intro-content">
                 <p>
-                   ようこそ！
+                   ようこそ！ 제 사이버 공간에 오신 것을 환영합니다.<br>
+                   이곳은 제가 좋아하는 것들을 모아두는 작은 아카이브입니다.
                 </p>
 
-                <div class="social-links">
-                    <a href="https://twitter.com/yourprofile" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <a href="https://youtube.com/yourprofile" target="_blank"><i class="fab fa-youtube"></i></a>
-                    <a href="https://spotify.com/yourprofile" target="_blank"><i class="fab fa-spotify"></i></a>
-                    <a href="https://soundcloud.com/yourprofile" target="_blank"><i class="fas fa-cloud"></i></a>
-                    <a href="https://blog.naver.com/yourprofile" target="_blank"><i class="fas fa-blog"></i></a>
+                <!-- SoundCloud Player Embed -->
+                <div class="soundcloud-player-container">
+                    <iframe scrolling="no" frameborder="no" allow="autoplay"
+                        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/347779050&color=%23a29bfe&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=true">
+                    </iframe>
+                </div>
+                <!-- End SoundCloud Player Embed -->
+
+                <div class="social-links" style="margin-top: 20px;">
+                    <a href="#" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" target="_blank" title="Spotify"><i class="fab fa-spotify"></i></a>
+                    <a href="#" target="_blank" title="SoundCloud"><i class="fas fa-cloud"></i></a>
+                    <a href="#" target="_blank" title="Blog"><i class="fas fa-blog"></i></a>
                 </div>
             </div>
         </section>
 
         <section class="archive-section">
-            <!-- Archive Items (HTML 구조는 동일) -->
+            <!-- Archive Items (HTML 구조 변경: h3, p를 감싸는 item-overlay 추가) -->
             <div class="archive-item">
-                <div class="image-container">
-                    <img src="https://via.placeholder.com/140/b3e5fc/336699?text=Book" alt="Book Image">
+                <img src="https://images.unsplash.com/photo-1543002588-b9b6b622e8af?w=500&q=80" alt="Book Image">
+                <div class="item-overlay">
+                    <h3><span class="toggle-icon">▼</span>Favorite Book</h3>
+                    <p class="description">A captivating story about dreams and reality.</p>
                 </div>
-                <h3><span class="toggle-icon">▼</span>Favorite Book</h3>
-                <p class="description">A captivating story.</p>
             </div>
             <div class="archive-item">
-                <div class="image-container">
-                    <img src="https://via.placeholder.com/140/b2ebf2/336699?text=Comic" alt="Comic Image">
+                <img src="https://images.unsplash.com/photo-1612036782180-6f0b6cd84627?w=500&q=80" alt="Comic Image">
+                <div class="item-overlay">
+                    <h3><span class="toggle-icon">▼</span>Favorite Comic</h3>
+                    <p class="description">Stunning artwork and deep world-building.</p>
                 </div>
-                 <h3><span class="toggle-icon">▼</span>Favorite Comic</h3>
-                <p class="description">Stunning artwork.</p>
             </div>
             <div class="archive-item">
-                <div class="image-container">
-                    <img src="https://via.placeholder.com/140/e0f2f7/336699?text=Movie" alt="Movie Image">
+                <img src="https://images.unsplash.com/photo-1574267432553-f4e2e51aa8a5?w=500&q=80" alt="Movie Image">
+                <div class="item-overlay">
+                    <h3><span class="toggle-icon">▼</span>Favorite Movie</h3>
+                    <p class="description">Visually stunning sci-fi with a great soundtrack.</p>
                 </div>
-                <h3><span class="toggle-icon">▼</span>Favorite Movie</h3>
-                <p class="description">Visually stunning.</p>
             </div>
             <div class="archive-item">
-                <div class="image-container">
-                    <img src="https://via.placeholder.com/140/b3e5fc/336699?text=Music" alt="Music Image">
+                <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=500&q=80" alt="Music Image">
+                <div class="item-overlay">
+                    <h3><span class="toggle-icon">▼</span>Favorite Music</h3>
+                    <p class="description">Dreamy synths and ethereal vocals.</p>
                 </div>
-               <h3><span class="toggle-icon">▼</span>Favorite Music</h3>
-                <p class="description">Dreamy synths.</p>
             </div>
             <div class="archive-item">
-                <div class="image-container">
-                   <img src="https://via.placeholder.com/140/b2ebf2/336699?text=Game" alt="Game Image">
+                <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=500&q=80" alt="Game Image">
+                <div class="item-overlay">
+                     <h3><span class="toggle-icon">▼</span>Favorite Game</h3>
+                    <p class="description">Incredible world design and immersive story.</p>
                 </div>
-               <h3><span class="toggle-icon">▼</span>Favorite Game</h3>
-                <p class="description">Incredible world.</p>
             </div>
             <div class="archive-item">
-                <div class="image-container">
-                   <img src="https://via.placeholder.com/140/e0f2f7/336699?text=Art" alt="Art Image">
+                <img src="https://images.unsplash.com/photo-1579541814924-49fef17c5120?w=500&q=80" alt="Art Image">
+                <div class="item-overlay">
+                    <h3><span class="toggle-icon">▼</span>Favorite Art</h3>
+                    <p class="description">Serene beauty captured in digital painting.</p>
                 </div>
-                <h3><span class="toggle-icon">▼</span>Favorite Artwork</h3>
-                <p class="description">Serene beauty.</p>
             </div>
             <div class="archive-item">
-                <div class="image-container">
-                   <img src="https://via.placeholder.com/140/b3e5fc/336699?text=Item7" alt="Item 7">
+                <img src="https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?w=500&q=80" alt="Item 7">
+                <div class="item-overlay">
+                    <h3><span class="toggle-icon">▼</span>Nostalgia</h3>
+                    <p class="description">A quiet afternoon in the past.</p>
                 </div>
-                <h3><span class="toggle-icon">▼</span>Item 7</h3>
-                <p class="description">Description 7.</p>
             </div>
             <div class="archive-item">
-                <div class="image-container">
-                   <img src="https://via.placeholder.com/140/b2ebf2/336699?text=Item8" alt="Item 8">
+                <img src="https://images.unsplash.com/photo-1620932934088-fbdb2923da9d?w=500&q=80" alt="Item 8">
+                <div class="item-overlay">
+                    <h3><span class="toggle-icon">▼</span>Secret Place</h3>
+                    <p class="description">A place I want to visit someday.</p>
                 </div>
-                <h3><span class="toggle-icon">▼</span>Item 8</h3>
-                <p class="description">Description 8.</p>
             </div>
-            <!-- 추가 아카이브 아이템이 있다면 여기에 계속 추가 -->
         </section>
     </div>
 
@@ -456,46 +418,33 @@
             // Collapsible Introduction Section
             const introSection = document.querySelector('.intro-section');
             const introTitle = introSection.querySelector('h2');
-            const introContent = introSection.querySelector('.intro-content'); // intro-content 요소 참조
-
-            // 사운드클라우드 플레이어가 intro-content 밖으로 이동했으므로,
-            // intro-content의 max-height, opacity, padding만 제어하면 됩니다.
-
             introTitle.addEventListener('click', () => {
                 introSection.classList.toggle('collapsed');
-
-                // 접근성 고려: aria-expanded 속성 토글
-                const isCollapsed = introSection.classList.contains('collapsed');
-                introTitle.setAttribute('aria-expanded', !isCollapsed);
-                introContent.setAttribute('aria-hidden', isCollapsed);
             });
-            // 초기 상태 설정 (펼쳐진 상태)
-            introSection.classList.remove('collapsed'); // 새로고침 시 항상 펼쳐져 있도록
-            introTitle.setAttribute('aria-expanded', 'true');
-            introContent.setAttribute('aria-hidden', 'false');
-
+            // 초기 상태: 펼쳐짐
+            introSection.classList.remove('collapsed');
 
             // Collapsible Archive Items
             const archiveItems = document.querySelectorAll('.archive-item');
             archiveItems.forEach(item => {
                 const title = item.querySelector('h3');
-                const description = item.querySelector('.description'); // description 요소 참조
+                
+                // 초기 상태: 모두 접힘
+                item.classList.add('collapsed');
 
-                // 초기 상태 설정 (접힌 상태로 시작하도록)
-                item.classList.add('collapsed'); // 처음에 접혀 있도록 collapsed 클래스 추가
-                title.setAttribute('aria-expanded', 'false'); // 접근성
-                if(description) description.setAttribute('aria-hidden', 'true'); // 접근성
-
+                // 제목(h3)을 클릭하면 토글
                 title.addEventListener('click', (event) => {
+                    event.stopPropagation(); // 이벤트 버블링 방지
                     item.classList.toggle('collapsed');
-
-                    // 접근성 고려: aria-expanded 속성 토글
-                    const isCollapsed = item.classList.contains('collapsed');
-                    title.setAttribute('aria-expanded', !isCollapsed);
-                    if(description) description.setAttribute('aria-hidden', isCollapsed);
                 });
             });
 
+             // 이미지 자리 표시용 Unsplash 이미지 URL로 교체 (placeholder.com 대신)
+            // 좀 더 예쁜 이미지를 위해 임의의 이미지들로 채웠습니다. 원하시는 이미지로 변경하세요.
+            // document.querySelectorAll('.archive-item img').forEach(img => {
+            //     const randomId = Math.floor(Math.random() * 1000);
+            //     img.src = `https://picsum.photos/id/${randomId}/200/200`;
+            // });
         });
     </script>
 </body>

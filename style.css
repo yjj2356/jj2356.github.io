@@ -168,31 +168,107 @@ body {
 /* --- 첫 화면 전용 애니메이션 배경 --- */
 /* style.css 파일의 .splash-page-body 부분을 이 코드로 교체하세요. */
 
+/* style.css 파일 맨 아래에 이 코드를 전부 추가하세요 */
+
+/* --- [대체] 첫 화면 전용 - 별이 빛나는 밤하늘 효과 --- */
 .splash-page-body {
-    /*
-     * 보라색을 빼고, 대비를 위해 '차가운 강철 느낌의 푸른 회색(LightSteelBlue)'을 추가했습니다.
-     * #e9e9f0 (은은한 은색)
-     * #f0f8ff (기본 하늘색)
-     * #e0f7fa (청량한 하늘색)
-     * #b0c4de (대비를 위한 강철색/스틸블루)
-    */
-    background: linear-gradient(-45deg, #e9e9f0, #f0f8ff, #99dfff, #63b9ff);
-    
-    /* [크기&속도 유지] 대비가 잘 느껴지는 설정값 */
-    background-size: 300% 300%;
-    animation: gradientFlow 10s ease infinite;
+    /* 깊은 밤하늘 느낌의 그라데이션 배경 */
+    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+    height: 100vh;
+    overflow: hidden; /* 화면 밖으로 나가는 별똥별 꼬리 숨김 */
 }
 
-/* 기존 body 스타일은 내부 페이지(page_about 등)에 적용됩니다. */
-body {
-    font-family: 'DotGothic16', sans-serif;
-    background-color: #f0f8ff; /* AliceBlue 배경색 */
-    background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.03' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
-    margin: 0;
-    padding: 0;
-    color: #336699; /* 메인 텍스트 색상 */
-    overflow-x: hidden;
-    font-size: 1em;
+/* 별들을 담는 전체 컨테이너 (애니메이션 캔버스 역할) */
+.stars-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* 메뉴 뒤로 보내기 */
 }
 
-/* (이하 다른 CSS 코드는 그대로 유지) */
+/* 반짝이는 별 애니메이션 정의 */
+@keyframes twinkle {
+    from { background-position: 0 0; }
+    to { background-position: -10000px 5000px; }
+}
+
+/* 3개의 별 레이어를 만들어 깊이감(Parallax) 표현 */
+#stars1, #stars2, #stars3 {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent;
+    /* 'box-shadow'를 이용해 수백 개의 별을 만듭니다. */
+}
+
+/* 작은 별들 (가장 멀리, 가장 느리게) */
+#stars1 {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="2px" height="2px"><circle cx="1" cy="1" r="1" fill="rgba(200, 225, 255, 0.6)"/></svg>');
+    animation: twinkle 200s linear infinite;
+}
+
+/* 중간 크기 별들 */
+#stars2 {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="3px" height="3px"><circle cx="1.5" cy="1.5" r="1.5" fill="rgba(225, 240, 255, 0.8)"/></svg>');
+    animation: twinkle 150s linear infinite;
+}
+
+/* 큰 별들 (가장 가까이, 가장 빠르게) */
+#stars3 {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4px" height="4px"><circle cx="2" cy="2" r="2" fill="rgba(255, 255, 255, 0.9)"/></svg>');
+    animation: twinkle 100s linear infinite;
+}
+
+/* 별똥별 스타일링 */
+.shooting-star {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 3px;
+    height: 3px;
+    background: #fff;
+    border-radius: 50%;
+    /* 빛나는 효과 */
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #b0c4de;
+    animation: shoot 5s linear infinite;
+}
+
+/* 별똥별 꼬리 만들기 (pseudo-element) */
+.shooting-star::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 3px; /* 별의 오른쪽에서 시작 */
+    width: 200px; /* 꼬리 길이 */
+    height: 1px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.5), transparent);
+}
+
+/* 두 번째 별똥별은 다른 시간, 다른 위치에서 나타나도록 설정 */
+.shooting-star:nth-child(5) {
+    top: 20%;
+    left: 80%;
+    animation-delay: 2.5s; /* 2.5초 뒤에 시작 */
+    animation-duration: 4s; /* 더 빠르게 떨어짐 */
+}
+
+/* 별똥별 이동 애니메이션 정의 */
+@keyframes shoot {
+    0% {
+        transform: rotate(315deg) translateX(0);
+        opacity: 1;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        /* 화면 밖으로 멀리 사라지도록 설정 */
+        transform: rotate(315deg) translateX(-1500px);
+        opacity: 0;
+    }
+}

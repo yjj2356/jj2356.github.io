@@ -6,7 +6,6 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-// [핵심 1: 제공해주신 문장 목록은 그대로 사용합니다]
 const textBlocks = [
     `내가 밥맛이면 자네는 꿀맛이란 말인가?`,
     `축복해라. 결혼엔 그게 필요한 법이지.`,
@@ -15,13 +14,13 @@ const textBlocks = [
     `君は僕と同じだね。`,
     `너는 이제까지 먹은 빵의 개수를 기억하고 있나?`,
     `안 보이는 곳에서 너를 안전하게 지키고 있었다고`,
-    `You're a bittersweet bundle of misery`, // 영어는 너무 길어서 짧게 줄였습니다. 원하시면 원래대로 복구 가능합니다.
+    `You're a bittersweet bundle of misery`,
     `きみの愛馬が！ずきゅんどきゅん　走り出し(ふっふー)`,
     `遥か彼方僕らは出会ってしまった`,
-    `カルマだから何度も出会ってしまうよ`, // 짧게 수정
-    `Take me away from this big bad world`, // 짧게 수정
-    `心よ原始に戻れ`, // 짧게 수정
-    `날개야 다시 돋아라. 날자. 날자.`, // 짧게 수정
+    `カルマだから何度も出会ってしまうよ`,
+    `Take me away from this big bad world`,
+    `心よ原始に戻れ`,
+    `날개야 다시 돋아라. 날자. 날자.`,
     `무진 Mujin 10km`,
     `eclipse first, the rest nowhere.`
 ];
@@ -29,33 +28,40 @@ const textBlocks = [
 // --- 설정 ---
 const config = {
     fontSize: 16,
-    speed: 35, // 이전보다 조금 더 빠르게 조정 (33ms)
+    speed: 33,
     trailColor: 'rgba(240, 248, 255, 0.1)',
-    colors: ['#336699', '#427191', '#607d8b', '#78909c']
+    colors: ['#336699', '#427191', '#607d8b', '#78909c'],
+    // [핵심 1: 새 문장이 나타날 확률. 숫자가 1에 가까울수록(예: 0.99) 더 뜸하게 나타납니다.]
+    spawnChance: 0.97
 };
 // ---------------------------------------------
 
-// [핵심 2: 이제 각 세로줄은 단순한 숫자가 아닌, 자신만의 상태를 가진 '객체'가 됩니다]
-let columns; 
+let columns;
 
 function setupColumns() {
     const columnCount = Math.floor(canvas.width / config.fontSize);
     columns = [];
     for (let i = 0; i < columnCount; i++) {
-        columns.push(resetColumn({})); // 빈 객체로 시작
+        // 모든 세로줄을 '비활성(isActive: false)' 상태로 시작합니다.
+        columns.push({ x: i * config.fontSize, isActive: false });
     }
 }
 
-// 세로줄 하나를 초기화하거나 리셋하는 함수
-// 세로줄 하나를 초기화하거나 리셋하는 함수
-function resetColumn(column) {
+// '비활성' 상태인 세로줄 하나를 '활성' 상태로 만드는 함수
+function activateRandomColumn() {
+    // 쉬고 있는(비활성) 세로줄만 필터링합니다.
+    const inactiveColumns = columns.filter(col => !col.isActive);
+    if (inactiveColumns.length === 0) return; // 쉴 애가 없으면 아무것도 안 함
+
+    // 쉬는 애들 중에서 랜덤으로 하나를 고릅니다.
+    const columnToActivate = inactiveColumns[Math.floor(Math.random() * inactiveColumns.length)];
+
+    // 선택된 세로줄을 초기화하고 '활성' 상태로 만듭니다.
     const sentence = textBlocks[Math.floor(Math.random() * textBlocks.length)];
-    column.sentence = sentence.replace(/\s/g, ''); // 공백 제거
-    column.charIndex = 0; // 문장의 첫 글자부터 시작
-    column.x = (columns.length > 0) ? columns.indexOf(column) * config.fontSize : 0;
-    // [핵심 수정] 문장의 시작 위치를 화면 한참 위(마이너스 y값)로 랜덤하게 설정합니다.
-    column.y = -(Math.random() * canvas.height * 2); 
-    return column;
+    columnToActivate.sentence = sentence.replace(/\s/g, '');
+    columnToActivate.charIndex = 0;
+    columnToActivate.y = 0; // 시작점은 항상 맨 위(y=0)
+    columnToActivate.isActive = true; // 깨워서 일 시킴
 }
 
 function draw() {
@@ -63,41 +69,43 @@ function draw() {
     ctx.fillStyle = config.trailColor;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.font = `${config.fontSize}px 'DotGothic16'`;
-    ctx.fillStyle = config.colors[0]; // 일단 기본 색상으로 통일
+    // [핵심 2: 매 프레임마다 확률적으로 새로운 문장을 깨웁니다.]
+    if (Math.random() > config.spawnChance) {
+        activateRandomColumn();
+    }
 
-    // 각 세로줄을 순회하며 글자를 그립니다.
+    ctx.font = `${config.fontSize}px 'DotGothic16'`;
+
     for (let i = 0; i < columns.length; i++) {
         const column = columns[i];
+        
+        // '비활성' 상태인 줄은 그냥 건너뜁니다.
+        if (!column.isActive) {
+            continue;
+        }
 
-        // [핵심 3: 현재 세로줄의 문장에서, 순서에 맞는 글자를 가져옵니다]
         const char = column.sentence[column.charIndex];
         if (char) {
-             // 글자마다 다른 색을 줍니다.
             ctx.fillStyle = config.colors[i % config.colors.length];
             ctx.fillText(char, column.x, column.y);
         }
 
-        // y 좌표를 이동시켜 아래로 떨어지는 효과를 줍니다.
         column.y += config.fontSize;
-        // 다음 글자를 가리키도록 인덱스를 증가시킵니다.
         column.charIndex++;
 
-        // 문장이 끝나거나, 화면 밖으로 나가면 리셋합니다.
-        // Math.random() > 0.995 조건으로 인해 모든 줄이 동시에 리셋되지 않아 자연스러워 보입니다.
-        if (column.charIndex >= column.sentence.length || (column.y > canvas.height && Math.random() > 0.995)) {
-            resetColumn(column);
+        // 문장이 끝나면 다시 '비활성' 상태로 돌아가 쉬게 합니다.
+        if (column.charIndex >= column.sentence.length) {
+            column.isActive = false;
         }
     }
 }
 
-// 창 크기가 변경될 때, 세로줄을 다시 계산합니다.
+// 창 크기 변경 시, 세로줄 다시 계산
 window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     setupColumns();
 });
-
 
 // 초기 설정 및 애니메이션 시작
 setupColumns();

@@ -85,11 +85,15 @@ body {
 }
 
 /* '공사 중'인 비활성 메뉴를 위한 스타일 */
+/* style.css 파일의 맨 아래에 있는 .disabled-link 스타일을 이걸로 교체하세요. */
+
+/* '공사 중'인 비활성 메뉴를 위한 스타일 */
 .main-nav .disabled-link {
     font-size: 1.2em;
-    padding: 5px 15px;
-    color: #6495ed; /* 링크와 동일한 색상 */
-    opacity: 0.6; /* 비활성 느낌 */
+    /* 괄호가 추가되었으므로 좌우 패딩을 살짝 줄여 균형을 맞춥니다. */
+    padding: 5px 10px; 
+    color: #6495ed;
+    opacity: 0.6;
     cursor: not-allowed;
 }
 

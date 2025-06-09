@@ -54,7 +54,7 @@ function resetColumn(column) {
     column.charIndex = 0; // 문장의 첫 글자부터 시작
     column.x = (columns.length > 0) ? columns.indexOf(column) * config.fontSize : 0;
     // [핵심 수정] 문장의 시작 위치를 화면 한참 위(마이너스 y값)로 랜덤하게 설정합니다.
-    column.y = -(Math.random() * canvas.height * 5); 
+    column.y = -(Math.random() * canvas.height * 2); 
     return column;
 }
 

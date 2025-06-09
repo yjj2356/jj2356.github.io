@@ -167,16 +167,12 @@ body {
 
 /* --- 첫 화면 전용 애니메이션 배경 --- */
 .splash-page-body {
-    /* 여러 개의 하늘색 계열 색상으로 그라데이션을 만듭니다. */
-    background: linear-gradient(-45deg, #f0f8ff, #e6f7ff, #d6eaff, #e0f2f7);
-    
-    /* 실제 화면보다 훨씬 큰 배경 이미지를 만듭니다. (4배 크기) */
-    background-size: 400% 400%;
+    /* 조금 더 진한 은색과 하늘색을 교차시켜 대비감을 줍니다. */
+    background: linear-gradient(-45deg, #dcdce2, #e6f7ff, #f0f8ff, #c4c4cc);
 
-    /* 'gradientFlow' 라는 이름의 애니메이션을 15초 동안 부드럽게 무한 반복합니다. */
+    background-size: 400% 400%;
     animation: gradientFlow 15s ease infinite;
 }
-
 /* 움직임을 정의하는 애니메이션 키프레임 */
 @keyframes gradientFlow {
     0% {

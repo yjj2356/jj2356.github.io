@@ -15,12 +15,26 @@
 
     <div class="splash-container">
         <h1 class="main-title">My Cyber Home</h1>
-        <nav class="main-nav">
-            <ul>
-                <li><a href="page_about.html">ABOUT</a></li>
-                <!-- (메뉴 생략) -->
-            </ul>
-        </nav>
+        <!-- index.html 파일의 <nav> 부분을 아래처럼 수정하세요. -->
+
+<nav class="main-nav">
+    <ul>
+        <!-- 'ABOUT'은 완성되었으므로 그대로 둡니다. -->
+        <li><a href="page_about.html">ABOUT</a></li>
+
+        <!-- [새로 추가] 'GUESTBOOK' 메뉴 (클릭 불가) -->
+        <li>
+            <span class="disabled-link">🛠️ GUESTBOOK</span>
+        </li>
+
+        <!-- [새로 추가] 'ARCHIVE' 메뉴 (클릭 불가) -->
+        <li>
+            <span class="disabled-link">🛠️ ARCHIVE</span>
+        </li>
+        
+        <!-- 필요하다면 다른 메뉴도 이런 식으로 추가할 수 있습니다. -->
+    </ul>
+</nav>
     </div>
 
     <!-- 👇 body가 닫히기 직전에 스크립트 파일을 연결합니다. -->

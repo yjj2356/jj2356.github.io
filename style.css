@@ -87,6 +87,8 @@ body {
 /* '공사 중'인 비활성 메뉴를 위한 스타일 */
 /* style.css 파일의 맨 아래에 있는 .disabled-link 스타일을 이걸로 교체하세요. */
 
+/* style.css 파일의 맨 아래에 있는 .disabled-link 스타일을 이걸로 교체하세요. */
+
 /* '공사 중'인 비활성 메뉴를 위한 스타일 */
 .main-nav .disabled-link {
     font-size: 1.2em;

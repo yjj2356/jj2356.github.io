@@ -29,7 +29,7 @@ const textBlocks = [
 // --- 설정 ---
 const config = {
     fontSize: 16,
-    speed: 33, // 이전보다 조금 더 빠르게 조정 (33ms)
+    speed: 35, // 이전보다 조금 더 빠르게 조정 (33ms)
     trailColor: 'rgba(240, 248, 255, 0.1)',
     colors: ['#336699', '#427191', '#607d8b', '#78909c']
 };
@@ -47,12 +47,14 @@ function setupColumns() {
 }
 
 // 세로줄 하나를 초기화하거나 리셋하는 함수
+// 세로줄 하나를 초기화하거나 리셋하는 함수
 function resetColumn(column) {
     const sentence = textBlocks[Math.floor(Math.random() * textBlocks.length)];
     column.sentence = sentence.replace(/\s/g, ''); // 공백 제거
     column.charIndex = 0; // 문장의 첫 글자부터 시작
     column.x = (columns.length > 0) ? columns.indexOf(column) * config.fontSize : 0;
-    column.y = 0; // 항상 맨 위에서 시작
+    // [핵심 수정] 문장의 시작 위치를 화면 한참 위(마이너스 y값)로 랜덤하게 설정합니다.
+    column.y = -(Math.random() * canvas.height * 5); 
     return column;
 }
 

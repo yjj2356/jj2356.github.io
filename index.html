@@ -3,337 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Cyber Archive</title>
+    <title>My Homepage</title> <!-- 타이틀 변경 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        /*
-          NEW DESIGN THEME: Sky Blue Scrapbook
-          - 하늘색 계열 배경과 자유로운 스크랩/폴라로이드 레이아웃
-          - 데스크톱: 자유 배치, 모바일: 그리드 배치
-        */
-
-        :root {
-            --primary-text-color: #1e2a4f; /* 짙은 남색 */
-            --accent-color-1: #4fc3f7; /* 밝은 하늘색 */
-            --card-bg: rgba(255, 255, 255, 0.6); /* 반투명 화이트 */
-            --card-border: rgba(255, 255, 255, 0.3);
-        }
-
-        /* 부드러운 하늘 배경 애니메이션 */
-        @keyframes sky-gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        body {
-            font-family: 'Gaegu', cursive; /* 기본 폰트를 손글씨체로 변경 */
-            background: linear-gradient(-45deg, #e0f7fa, #b3e5fc, #81d4fa, #4fc3f7);
-            background-size: 400% 400%;
-            animation: sky-gradient 25s ease infinite;
-            margin: 0;
-            padding: 0;
-            color: var(--primary-text-color);
-            overflow-x: hidden;
-            font-size: 16px;
-        }
-        
-        /* 미세한 노이즈로 종이 질감 표현 */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            opacity: 0.025;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1000px;
-            margin: auto;
-            padding: 20px 15px;
-            position: relative;
-        }
-
-        header {
-            /* 헤더는 기존 스타일 유지 */
-            padding: 20px 15px;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        
-        header h1 {
-            font-family: 'DotGothic16', sans-serif;
-            font-size: 2.5em;
-            color: #fff;
-            text-shadow: 2px 2px 0px var(--accent-color-1), 4px 4px 0px rgba(0,0,0,0.1);
-            letter-spacing: 2px;
-        }
-
-        /* Glassmorphism Card Style */
-        .glass-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 15px;
-            border: 1px solid var(--card-border);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
-            padding: 25px;
-            margin-bottom: 3rem;
-        }
-        
-        .intro-section h2 {
-            font-family: 'DotGothic16', sans-serif;
-            font-size: 1.5em;
-            margin: 0 0 15px 0;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
-        .intro-section h2 .toggle-icon {
-            margin-right: 10px;
-            font-size: 0.8em;
-            transition: transform 0.4s ease;
-        }
-        .intro-section.collapsed h2 .toggle-icon { transform: rotate(-90deg); }
-        .intro-content {
-            max-height: 1000px; overflow: hidden; opacity: 1;
-            transition: max-height 0.5s ease-out, opacity 0.4s ease-out;
-        }
-        .intro-section.collapsed .intro-content { max-height: 0; opacity: 0; }
-        .intro-section p { font-size: 1.2em; line-height: 1.6; }
-        
-        .soundcloud-player-container {
-             border-radius: 10px; overflow: hidden; margin-bottom: 20px;
-             border: 1px solid var(--card-border);
-        }
-        .soundcloud-player-container iframe {
-            width: 100%; height: 160px; border: none; display: block;
-        }
-
-        .social-links { display: flex; justify-content: center; gap: 15px; }
-        .social-links a {
-            font-size: 1.5em; color: var(--primary-text-color); width: 45px; height: 45px;
-            border-radius: 50%; display: inline-flex; justify-content: center; align-items: center;
-            transition: all 0.2s ease-in-out;
-            background: rgba(255, 255, 255, 0.7);
-        }
-        .social-links a:hover {
-            transform: translateY(-4px) scale(1.1);
-            background: #fff; color: var(--accent-color-1);
-        }
-
-        /* --- 스크랩북 레이아웃 섹션 --- */
-        .archive-section {
-            position: relative;
-            width: 100%;
-            /* 데스크톱에서 높이를 지정해야 자식 요소들이 배치될 공간이 생김 */
-            height: 900px; 
-            margin-top: 50px;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .archive-item {
-            /* 폴라로이드 스타일 */
-            background: #fff;
-            padding: 10px 10px 20px 10px;
-            border-radius: 4px;
-            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);
-            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
-            cursor: pointer;
-            opacity: 0;
-            animation: fadeIn 0.8s ease-out forwards;
-            position: absolute; /* 데스크탑에서는 절대 위치 */
-        }
-        
-        .archive-item:hover {
-            /* 호버 시 앞으로 나오고 반듯하게 펴짐 */
-            transform: scale(1.15) rotate(0deg) !important;
-            box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
-            z-index: 100 !important; /* 항상 맨 앞으로 오도록 */
-        }
-
-        .archive-item img {
-            width: 100%;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .archive-item h3 {
-            font-family: 'DotGothic16', sans-serif;
-            font-size: 1em;
-            margin: 0 5px 5px;
-            color: #333;
-            text-align: center;
-        }
-
-        .archive-item p {
-            font-family: 'Gaegu', cursive;
-            font-size: 0.9em;
-            margin: 0 5px;
-            color: #555;
-            line-height: 1.4;
-            text-align: center;
-        }
-        
-        /* 마스킹 테이프 스타일 */
-        .tape::before {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 25px;
-            background-color: rgba(255, 255, 128, 0.5); /* 반투명 노란색 */
-            border-left: 1px dashed rgba(0,0,0,0.1);
-            border-right: 1px dashed rgba(0,0,0,0.1);
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            backdrop-filter: blur(1px);
-        }
-
-        /* 개별 아이템 위치 및 회전 (데스크탑 전용) */
-        .archive-item:nth-child(1) { top: 5%; left: 8%; width: 180px; transform: rotate(-8deg); animation-delay: 0.1s; z-index: 1;}
-        .archive-item:nth-child(2) { top: 0%; left: 45%; width: 220px; transform: rotate(5deg); animation-delay: 0.2s; z-index: 2;}
-        .archive-item:nth-child(3) { top: 10%; right: 5%; width: 190px; transform: rotate(10deg); animation-delay: 0.3s; z-index: 3;}
-        .archive-item:nth-child(4) { top: 38%; left: 20%; width: 210px; transform: rotate(-12deg); animation-delay: 0.4s; z-index: 4;}
-        .archive-item:nth-child(5) { top: 45%; right: 15%; width: 180px; transform: rotate(3deg); animation-delay: 0.5s; z-index: 5;}
-        .archive-item:nth-child(6) { top: 65%; left: 5%; width: 200px; transform: rotate(7deg); animation-delay: 0.6s; z-index: 6;}
-        .archive-item:nth-child(7) { top: 70%; left: 50%; width: 170px; transform: rotate(-5deg); animation-delay: 0.7s; z-index: 7;}
-        .archive-item:nth-child(8) { top: 68%; right: 8%; width: 220px; transform: rotate(8deg); animation-delay: 0.8s; z-index: 8;}
-        
-        .archive-item:nth-child(2).tape::before,
-        .archive-item:nth-child(4).tape::before,
-        .archive-item:nth-child(7).tape::before {
-            transform: translateX(-50%) rotate(-5deg);
-        }
-
-        /* --- 반응형 디자인 --- */
-        @media (max-width: 900px) {
-            .archive-section {
-                height: 1200px; /* 중화면에서 높이 조정 */
-            }
-        }
-
-        @media (max-width: 768px) {
-            .archive-section {
-                /* 모바일에서는 자유 배치 대신 그리드 사용 */
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 20px;
-                height: auto; /* 높이 자동 조정 */
-                position: static; /* position 해제 */
-                margin-top: 20px;
-            }
-            .archive-item {
-                position: static; /* position 해제 */
-                width: auto !important; /* 너비 자동 조정 */
-                transform: rotate(0deg) !important; /* 회전 해제 */
-                animation-delay: 0s !important;
-                opacity: 1; /* 애니메이션 다시 적용 안되도록 */
-            }
-            .archive-item:hover {
-                transform: scale(1.05) !important; /* 호버 효과 단순화 */
-            }
-            .tape::before { display: none; } /* 모바일에서는 테이프 숨김 */
-        }
-    </style>
+    <link rel="stylesheet" href="style.css"> <!-- style.css 연결 -->
 </head>
 <body>
     <header>
-        <h1>My Cyber Archive</h1>
+        <h1>My Cyber Home</h1> <!-- 헤더 타이틀 변경 -->
     </header>
 
     <div class="container">
-        <section class="intro-section glass-card">
+
+        <!-- SoundCloud Player Embed -->
+        <div class="soundcloud-player-container">
+            <iframe scrolling="no" frameborder="no" allow="autoplay"
+                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/347779050&color=%230066cc&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
+            </iframe>
+        </div>
+
+        <!-- Collapsible Introduction Section -->
+        <section class="intro-section">
             <h2><span class="toggle-icon">▼</span>About</h2>
             <div class="intro-content">
-                <p>
-                   ようこそ！ 제 사이버 공간에 오신 것을 환영합니다.<br>
-                   이곳은 제가 좋아하는 것들을 스크랩해두는 작은 아카이브입니다.
-                </p>
-
-                <div class="soundcloud-player-container">
-                    <iframe scrolling="no" frameborder="no" allow="autoplay"
-                        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/347779050&color=%234fc3f7&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=true">
-                    </iframe>
-                </div>
+                <p>ようこそ！ 제 개인 홈페이지에 오신 것을 환영합니다.</p>
                 <div class="social-links">
-                    <a href="#" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-                    <a href="#" target="_blank" title="Spotify"><i class="fab fa-spotify"></i></a>
-                    <a href="#" target="_blank" title="SoundCloud"><i class="fas fa-cloud"></i></a>
-                    <a href="#" target="_blank" title="Blog"><i class="fas fa-blog"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="#" target="_blank"><i class="fas fa-blog"></i></a>
+                    <!-- 필요한 링크로 수정하세요 -->
                 </div>
             </div>
         </section>
 
-        <!-- 아카이브 섹션 (HTML 구조 단순화) -->
-        <section class="archive-section">
-            <div class="archive-item">
-                <img src="https://images.unsplash.com/photo-1543002588-b9b6b622e8af?w=400&q=80" alt="Book Image">
+        <!-- Board Menu Section (게시판 링크 메뉴) -->
+        <section class="board-menu-section">
+            <!-- 각 아이템을 a 태그로 바꾸고, 해당 게시판 html 파일로 연결합니다. -->
+            <a href="board_book.html" class="board-link-item">
+                <div class="image-container">
+                    <img src="https://via.placeholder.com/140/b3e5fc/336699?text=" alt="Book Image">
+                </div>
                 <h3>Favorite Book</h3>
-                <p>꿈과 현실에 대한 이야기.</p>
-            </div>
-            <!-- 'tape' 클래스를 추가하면 마스킹 테이프가 보입니다. -->
-            <div class="archive-item tape">
-                <img src="https://images.unsplash.com/photo-1612036782180-6f0b6cd84627?w=400&q=80" alt="Comic Image">
-                <h3>Favorite Comic</h3>
-                <p>깊이있는 세계관.</p>
-            </div>
-            <div class="archive-item">
-                <img src="https://images.unsplash.com/photo-1574267432553-f4e2e51aa8a5?w=400&q=80" alt="Movie Image">
+            </a>
+            <a href="board_comic.html" class="board-link-item">
+                <div class="image-container">
+                    <img src="https://via.placeholder.com/140/b2ebf2/336699?text=" alt="Comic Image">
+                </div>
+                 <h3>Favorite Comic</h3>
+            </a>
+            <a href="board_movie.html" class="board-link-item">
+                <div class="image-container">
+                    <img src="https://via.placeholder.com/140/e0f2f7/336699?text=" alt="Movie Image">
+                </div>
                 <h3>Favorite Movie</h3>
-                <p>환상적인 비주얼의 SF.</p>
-            </div>
-            <div class="archive-item tape">
-                <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400&q=80" alt="Music Image">
-                <h3>Favorite Music</h3>
-                <p>몽환적인 신디사이저.</p>
-            </div>
-            <div class="archive-item">
-                <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400&q=80" alt="Game Image">
-                <h3>Favorite Game</h3>
-                <p>몰입감 높은 스토리.</p>
-            </div>
-            <div class="archive-item">
-                <img src="https://images.unsplash.com/photo-1579541814924-49fef17c5120?w=400&q=80" alt="Art Image">
-                <h3>Favorite Art</h3>
-                <p>디지털 페인팅.</p>
-            </div>
-            <div class="archive-item tape">
-                <img src="https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?w=400&q=80" alt="Item 7">
-                <h3>Nostalgia</h3>
-                <p>과거의 어느 조용한 오후.</p>
-            </div>
-            <div class="archive-item">
-                <img src="https://images.unsplash.com/photo-1620932934088-fbdb2923da9d?w=400&q=80" alt="Item 8">
-                <h3>Secret Place</h3>
-                <p>언젠가 가보고 싶은 곳.</p>
-            </div>
+            </a>
+            <a href="board_music.html" class="board-link-item">
+                <div class="image-container">
+                    <img src="https://via.placeholder.com/140/b3e5fc/336699?text=" alt="Music Image">
+                </div>
+               <h3>Favorite Music</h3>
+            </a>
+            <a href="board_game.html" class="board-link-item">
+                <div class="image-container">
+                   <img src="https://via.placeholder.com/140/b2ebf2/336699?text=" alt="Game Image">
+                </div>
+               <h3>Favorite Game</h3>
+            </a>
+            <a href="board_diary.html" class="board-link-item">
+                <div class="image-container">
+                   <img src="https://via.placeholder.com/140/e0f2f7/336699?text=" alt="Diary">
+                </div>
+                <h3>Diary</h3>
+            </a>
+            <!-- 필요한 만큼 복사해서 사용하세요 -->
         </section>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // About 섹션 토글 기능
-            const introSection = document.querySelector('.intro-section');
-            const introTitle = introSection.querySelector('h2');
-            introTitle.addEventListener('click', () => {
-                introSection.classList.toggle('collapsed');
-            });
-            
-            // 스크랩북 아이템은 토글 기능이 없으므로 관련 스크립트 제거
-        });
-    </script>
+    <script src="script.js"></script> <!-- script.js 연결 -->
 </body>
 </html>

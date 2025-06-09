@@ -176,7 +176,7 @@ body {
      * #e0f7fa (청량한 하늘색)
      * #b0c4de (대비를 위한 강철색/스틸블루)
     */
-    background: linear-gradient(-45deg, #e9e9f0, #f0f8ff, #76bde3, #b0c4de);
+    background: linear-gradient(-45deg, #e9e9f0, #f0f8ff, #99dfff, #63b9ff);
     
     /* [크기&속도 유지] 대비가 잘 느껴지는 설정값 */
     background-size: 300% 300%;

@@ -20,8 +20,8 @@ const textBlocks = [
     `カルマだから何度も出会ってしまうよ`,
     `Take me away from this big bad world`,
     `心よ原始に戻れ`,
-    `날개야 다시 돋아라. 날자. 날자.`,
-    `무진 Mujin 10km`,
+    `ハッハッハー 一番一郎一期一会`,
+    `허나 거절한다.`,
     `eclipse first, the rest nowhere.`
 ];
 

@@ -163,3 +163,43 @@ body {
     .main-nav a { font-size: 1.1em; }
     .page-header h1 { font-size: 1.3em; }
 }
+/* style.css 파일 맨 아래에 추가하세요 */
+
+/* --- 첫 화면 전용 애니메이션 배경 --- */
+.splash-page-body {
+    /* 여러 개의 하늘색 계열 색상으로 그라데이션을 만듭니다. */
+    background: linear-gradient(-45deg, #f0f8ff, #e6f7ff, #d6eaff, #e0f2f7);
+    
+    /* 실제 화면보다 훨씬 큰 배경 이미지를 만듭니다. (4배 크기) */
+    background-size: 400% 400%;
+
+    /* 'gradientFlow' 라는 이름의 애니메이션을 15초 동안 부드럽게 무한 반복합니다. */
+    animation: gradientFlow 15s ease infinite;
+}
+
+/* 움직임을 정의하는 애니메이션 키프레임 */
+@keyframes gradientFlow {
+    0% {
+        background-position: 0% 50%; /* 시작 위치 (왼쪽) */
+    }
+    50% {
+        background-position: 100% 50%; /* 중간 위치 (오른쪽) */
+    }
+    100% {
+        background-position: 0% 50%; /* 다시 시작 위치로 복귀 */
+    }
+}
+
+/* 기존 body 스타일은 내부 페이지(page_about 등)에 적용됩니다. */
+body {
+    font-family: 'DotGothic16', sans-serif;
+    background-color: #f0f8ff; /* AliceBlue 배경색 */
+    background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.03' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+    margin: 0;
+    padding: 0;
+    color: #336699; /* 메인 텍스트 색상 */
+    overflow-x: hidden;
+    font-size: 1em;
+}
+
+/* (이하 다른 CSS 코드는 그대로 유지) */

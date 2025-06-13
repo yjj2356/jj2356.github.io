@@ -15,7 +15,7 @@ const textBlocks = [
     `너는 이제까지 먹은 빵의 개수를 기억하고 있나?`,
     `안 보이는 곳에서 너를 안전하게 지키고 있었다고`,
     `You're a bittersweet bundle of misery`,
-    `きみの愛馬が！ずきゅんどきゅん　走り出し(ふっふー)`,
+    `키미노 아이바가! 즈큥도쿵 하시리다시-(흣후ー)`,
     `遥か彼方僕らは出会ってしまった`,
     `カルマだから何度も出会ってしまうよ`,
     `Take me away from this big bad world`,

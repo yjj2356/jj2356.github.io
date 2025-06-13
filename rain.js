@@ -22,8 +22,8 @@ const textBlocks = [
     `心よ原始に戻れ`,
     `디...디오가 날 따돌리고 있어! 정말 미워!`,
     `허나 거절한다.`,
-    `eclipse first, the rest nowhere.`
-    `밤티님 죄송한데 진짜 아름다우세요.`
+    `eclipse first, the rest nowhere.`,
+    `밤티님 죄송한데 진짜 아름다우세요.`,
     `너 내가 병신인줄 아니?`
 ];
 

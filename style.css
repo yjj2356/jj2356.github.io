@@ -135,3 +135,23 @@ body {
     color: #888; /* 날짜는 약간 흐린 색으로 */
     font-size: 0.9em;
 }
+/* --- 페이지 레이아웃 및 여백 조정을 위한 스타일 --- */
+
+.splash-container.page-layout {
+    /* 1. 내용이 길어져도 잘리지 않도록 설정 */
+    height: auto; /* 높이를 내용에 맞게 자동으로 조절 */
+    min-height: 100vh; /* 최소 높이는 화면 전체로 유지 */
+    align-items: flex-start; /* 콘텐츠를 위에서부터 차례로 정렬 (중앙 정렬 해제) */
+    
+    /* 2. 컨테이너 자체에 여백(패딩)을 추가 */
+    /* 위아래로 60px, 좌우로 40px의 여백을 줍니다. */
+    padding: 60px 40px; 
+    
+    /* 패딩을 추가해도 전체 크기가 늘어나지 않게 하는 중요한 설정 */
+    box-sizing: border-box; 
+}
+
+/* (선택사항) 홈 버튼과 제목 아래에 약간의 공간을 더 줌 */
+.page-layout .main-nav {
+    margin-bottom: 50px;
+}

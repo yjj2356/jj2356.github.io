@@ -1,43 +1,11 @@
 <!-- index.html -->
-
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Cyber Home</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<!-- body 태그는 원래대로 둡니다 -->
-<body>
-    <!-- 👇 캔버스 태그를 body 바로 아래에 추가합니다. -->
-    <canvas id="matrix-rain"></canvas>
-
-    <div class="splash-container">
-        <h1 class="main-title">My Cyber Home</h1>
-        <!-- index.html 파일의 <nav> 부분을 아래처럼 수정하세요. -->
-
 <nav class="main-nav">
     <ul>
-        <!-- 'ABOUT'은 완성되었으므로 그대로 둡니다. -->
         <li><a href="page_about.html">ABOUT</a></li>
-
-        <!-- [새로 추가] 'GUESTBOOK' 메뉴 (클릭 불가) -->
         <li>
             <span class="disabled-link"> (GUESTBOOK🛠️)</span>
         </li>
-
-        <!-- [새로 추가] 'ARCHIVE' 메뉴 (클릭 불가) -->
-        <li>
-            <span class="disabled-link">(ARCHIVE🛠️)</span>
-        </li>
-        
-        <!-- 필요하다면 다른 메뉴도 이런 식으로 추가할 수 있습니다. -->
+        <!-- 👇 이 부분을 수정했습니다. -->
+        <li><a href="page_archive.html">ARCHIVE</a></li>
     </ul>
 </nav>
-    </div>
-
-    <!-- 👇 body가 닫히기 직전에 스크립트 파일을 연결합니다. -->
-    <script src="rain.js"></script>
-</body>
-</html>

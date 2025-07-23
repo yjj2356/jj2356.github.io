@@ -105,3 +105,33 @@ body {
 /* ============================================== */
 /* ... (이하 모든 내부 페이지 스타일은 이전과 동일하게 유지됩니다) ... */
 .page-container{width:90%;max-width:900px;margin:auto;padding:20px 15px}.page-header{background-image:url(https://i.ibb.co/vvHx63Sj/IMG-1893.png);background-size:cover;background-position:top center;padding:50px 15px 30px;border-radius:10px;margin-bottom:1.5rem;border:2px dashed #90caf9;text-align:center}.page-header h1{margin:0;font-size:1.5em;color:#336699;text-shadow:.5px .5px 0 #fff,-.5px -.5px 0 #fff}.home-link-container{margin-bottom:1.5rem;text-align:center}.home-link{display:inline-block;color:#336699;text-decoration:none;padding:8px 15px;border:1px solid #90caf9;border-radius:5px;background-color:#fff;transition:all .3s ease}.home-link:hover{background-color:#e3f2fd;transform:translateY(-2px);box-shadow:0 4px 8px rgba(51,102,153,.1)}.content-box{background-color:rgba(255,255,255,.8);padding:20px;border-radius:10px;margin-bottom:1.5rem;border:1px solid #90caf9}.content-box h2{font-size:1.3em;margin-top:0;padding-bottom:10px;border-bottom:1px dashed #bbdefb}.soundcloud-player-container{border-radius:8px;overflow:hidden;border:1px solid #bbdefb}.soundcloud-player-container iframe{width:100%;height:160px;border:none;display:block}.social-links{display:flex;justify-content:center;align-items:center;gap:15px;margin-top:20px;padding-top:15px;border-top:1px dashed #bbdefb}.social-links a{text-decoration:none;color:#336699;font-size:1.2em;display:inline-flex;justify-content:center;align-items:center;width:35px;height:35px;border-radius:50%;transition:all .3s ease;background-color:#fff;border:1px solid #90caf9}.social-links a:hover{transform:scale(1.1) translateY(-3px);background-color:#e0f7fa;box-shadow:0 4px 8px rgba(51,102,153,.2)}@media (max-width:768px){.splash-container .main-title{font-size:2em}.main-nav a{font-size:1.1em}.page-header h1{font-size:1.3em}}
+    
+    /* --- 아카이브 페이지 콘텐츠 스타일 (기존 구조 재사용) --- */
+
+.archive-content {
+    margin-top: 40px; /* 제목과 내용 사이의 간격 */
+    max-width: 600px; /* 내용이 너무 길어지지 않게 너비 제한 */
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left; /* 메모 내용은 왼쪽 정렬이 보기 편함 */
+}
+
+.archive-item {
+    margin-bottom: 20px; /* 각 메모 아이템 사이의 간격 */
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+.archive-item:last-child {
+    border-bottom: none;
+}
+
+.archive-item p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.archive-date {
+    color: #888; /* 날짜는 약간 흐린 색으로 */
+    font-size: 0.9em;
+}

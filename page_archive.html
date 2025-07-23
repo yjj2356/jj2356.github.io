@@ -1,1 +1,59 @@
-.
+
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cyber Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<!-- body 태그는 원래대로 둡니다 -->
+<body>
+    <!-- 👇 캔버스 태그를 body 바로 아래에 추가합니다. -->
+    <canvas id="matrix-rain"></canvas>
+
+    <!-- page_archive.html -->
+
+    <!-- 이 div 태그는 그대로 둡니다. -->
+    <div class="splash-container">
+
+        <!-- 👇 여기서부터 내용물을 교체합니다. -->
+
+        <h1 class="main-title">ARCHIVE</h1>
+
+        <!-- 홈으로 돌아가는 네비게이션을 넣어줍니다. -->
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="page_about.html">ABOUT</a></li>
+            </ul>
+        </nav>
+        
+        <!-- 아카이브 내용이 들어갈 부분 -->
+        <div class="archive-content">
+            <!-- 예시 메모 -->
+            <div class="archive-item">
+                <p class="archive-date">2024-05-21</p>
+                <p>메모장 스타일 아카이브 페이지 추가. 기존 레이아웃 유지하는 게 중요.</p>
+            </div>
+            
+            <div class="archive-item">
+                <p class="archive-date">2024-05-20</p>
+                <p>사이트에 매트릭스 배경 적용 완료.</p>
+            </div>
+
+            <!-- 새 메모는 이 archive-item div를 복사해서 추가하면 됩니다. -->
+        </div>
+
+        <!-- 👆 여기까지 교체 -->
+
+    </div>
+
+    <!-- 스크립트 태그도 그대로 둡니다. -->
+    <script src="rain.js"></script>
+    <!-- 👇 body가 닫히기 직전에 스크립트 파일을 연결합니다. -->
+    <script src="rain.js"></script>
+</body>
+</html>
